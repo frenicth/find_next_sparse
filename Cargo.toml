@@ -1,0 +1,6 @@
+[package]
+name = "sparse"
+version = "0.1.0"
+authors = ["Fredrik Nilsson <frednils@student.chalmers.se>"]
+
+[dependencies]
