@@ -17,7 +17,7 @@ pub mod sparse {
                 Ok(_number) => next = false,
                 Err(shifts) => {
                     add = 1;
-                    add <<= shifts - 1;
+                    add <<= shifts;
                     num = num + add;
                 }
             }
@@ -28,27 +28,23 @@ pub mod sparse {
 
     fn is_sparse(mut num: u32) -> Result<u32, u32> {
         let mut next = false;
-        let mut sequential_ones = 0;
         let mut shifts = 0;
+        let ret_val;
 
         while num > 0 {
-            if num & 1 == 1 {
-                sequential_ones = sequential_ones + 1;
-                if sequential_ones == 2 {
-                    next = true;
-                    break;
-                }
-            } else {
-                sequential_ones = 0;
+            if num & 3 == 3 {
+                next = true;
+                break;
             }
             shifts = shifts + 1;
             num >>= 1;
         }
         if next == true {
-            return Err(shifts);
+            ret_val = Err(shifts);
         } else {
-            return Ok(num);
+            ret_val = Ok(num);
         }
+        return ret_val;
     }
 }
 
