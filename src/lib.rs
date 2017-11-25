@@ -23,7 +23,7 @@ pub mod sparse {
             }
 
         }
-        return num;
+        num
     }
 
     fn is_sparse(num: usize) -> Result<usize, usize> {
