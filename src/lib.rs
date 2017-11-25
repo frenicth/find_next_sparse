@@ -1,8 +1,3 @@
-#[allow(dead_code)]
-fn main() {
-    println!("Hello, world!");
-}
-
 fn next_sparse_num(mut num: u32) -> u32 {
     let mut next = true;
     let mut shifts;

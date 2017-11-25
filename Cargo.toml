@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["Fredrik Nilsson <frednils@student.chalmers.se>"]
 
 [dependencies]
+
+[lib]
+name = "find_next_sparse"
+path = "src/lib.rs"
