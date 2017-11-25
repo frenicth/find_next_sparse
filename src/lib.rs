@@ -8,7 +8,7 @@ pub mod sparse {
     //! Returns the next sparse number after
     //! @param num. If num is sparse, num will
     //! be returned.
-    pub fn next_sparse_num(mut num: u32) -> u32 {
+    pub fn next_sparse_num(mut num: usize) -> usize {
         let mut next = true;
         let mut add;
         while next == true {
@@ -26,25 +26,15 @@ pub mod sparse {
         return num;
     }
 
-    fn is_sparse(mut num: u32) -> Result<u32, u32> {
-        let mut next = false;
-        let mut shifts = 0;
-        let ret_val;
-
-        while num > 0 {
-            if num & 3 == 3 {
-                next = true;
-                break;
-            }
-            shifts = shifts + 1;
-            num >>= 1;
+    fn is_sparse(num: usize) -> Result<usize, usize> {
+        let val = (0..)
+            .map(|n| num >> n)
+            .take_while(|&n| n > 0)
+            .position(|n| (n & 3 == 3));
+        match val {
+            Some(x) => Err(x),
+            None => Ok(num),
         }
-        if next == true {
-            ret_val = Err(shifts);
-        } else {
-            ret_val = Ok(num);
-        }
-        return ret_val;
     }
 }
 
