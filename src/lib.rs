@@ -10,26 +10,23 @@ pub mod sparse {
     //! be returned.
     pub fn next_sparse_num(mut num: u32) -> u32 {
         let mut next = true;
-        let mut shifts;
         let mut add;
         while next == true {
 
-            let tuple = is_sparse(num);
-            next = tuple.0;
-            shifts = tuple.1;
-
-            if next == true {
-                add = 1;
-                add <<= shifts - 1;
-                num = num + add;
-            } else {
-                return num;
+            match is_sparse(num) {
+                Ok(_number) => next = false,
+                Err(shifts) => {
+                    add = 1;
+                    add <<= shifts - 1;
+                    num = num + add;
+                }
             }
+
         }
-        return 0;
+        return num;
     }
 
-    fn is_sparse(mut num: u32) -> (bool, u32) {
+    fn is_sparse(mut num: u32) -> Result<u32, u32> {
         let mut next = false;
         let mut sequential_ones = 0;
         let mut shifts = 0;
@@ -48,9 +45,9 @@ pub mod sparse {
             num >>= 1;
         }
         if next == true {
-            return (true, shifts);
+            return Err(shifts);
         } else {
-            return (false, num);
+            return Ok(num);
         }
     }
 }
